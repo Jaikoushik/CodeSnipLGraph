@@ -13,7 +13,21 @@ class GroqChat:
         return model.invoke(self.prompt)
     
 
+class GroqDesc:
+
+    def __init__(self,MODEL,prompt):
+        self.MODEL = MODEL
+        self.prompt = prompt
+
+    from dotenv import load_dotenv
+    load_dotenv()
+    def chat(self,input):
+        model = ChatGroq(model = self.MODEL)
+        return model.invoke(input)
+    
 a = GroqChat("What is the capital city of France?","llama-3.3-70b-versatile")
 
-print(a.chat().content)
+b = GroqDesc("llama-3.3-70b-versatile","Generate a description")
 
+res = b.chat(a.chat().content)
+print(res)
